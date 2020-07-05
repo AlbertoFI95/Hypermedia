@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meet our volunteer</title>
+    <link rel="stylesheet" href="../css/bootstrap-4.4.1-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css//bootstrap-4.4.1-dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script>
+                function getEvent(i) {
+                    let fetchData = {
+                        method: 'GET'
+                    }
+                    fetch('/v1/event?limit=100&offset=0', fetchData).then(response => {
+                        console.log('header: ', response);
+                        return response.json();
+                    }).then(response => {
+
+                        console.log('response: ', response);
+                        var text = '';
+
+							var image = response[i].picture +".jpg" ;
+							console.log(image);
+                            text = text + `<div class="card">
+            									<div class="row no-gutters">
+                									<div class="col-md-4">
+                    									<img class="img-fluid" src=image alt="meeting">
+                									</div>
+                								<div class="col" style="margin: 2rem">
+                    							<div class="card-block">
+                        							<h4 class="card-title" style="margin: 1rem">${response[i].textual_presentation}</h4>
+                        							<p class="card-text" style="margin: 1rem">"${response[i].practical_info}"</p>
+                        							<div class="row" style="align-items: flex-end">
+                            							<div class="col-md-6">
+                                			+					<h3>${response[i].data}</h3>
+														</div>
+                            						<div class="col-md-6">
+                                							<a href="Event.html" class="btn btn-primary">Find out more</a>
+													</div>
+                        						</div>
+                    						</div>
+                						</div>
+									</div>
+								</div>`;
+                        
+                        document.getElementById("Event").innerHTML = `<div id="Event" class="card-deck mb-4" >${text}</div>`;
+                    })
+                }
+       </script>
+</head>
+<body  onload="getVolunteer(2)" style="background-color: #F2F5F6">
+<header>
+      <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+        <a class="navbar-brand" href="../Home.html"><img src="../img/05-Auser.png" style="max-height: 40px"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="AllServices.html">Our services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="AllEvents.html">Events</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="AllVolunteers.html">Our volunteers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="BecomeAVolunteer.html">Become a volunteer!</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="AboutUs.html">About us</a>
+            </li>
+          </ul>
+          <form class="form-inline mt-2 mt-md-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit"><img src="../img/SearchW.svg"></button>
+          </form>
+        </div>
+      </nav>
+</header>
+    
+<h1 style="margin: 6rem">Meet our volunteer!</h1>
+    
+<h6 style="margin-left: 6rem; margin-bottom: 2rem">
+    <a href="AllVolunteers.html" style="text-underline-position: below; color: #444444; vertical-align: bottom"><img src="../img/Previous.svg" style="margin-right: 1rem">Go up to all the volunteers</a>
+</h6>
+	    <script>
+                function getVolunteer(i) {
+                    let fetchData = {
+                        method: 'GET'
+                    }
+                    fetch('/v1/volunteers?limit=100&offset=0', fetchData).then(response => {
+                        console.log('header: ', response);
+                        return response.json();
+                    }).then(response => {
+
+                        console.log('response: ', response);
+                        var text = '';
+							var image = response[i].picture +".jpg" ;
+							console.log(image);
+                            text = text + `<div class="row" style="margin: 6rem; margin-top: 2rem; max-height: 300px"> 
+    							<div class="col-md-4">
+									<img class="img-fluid" style="max-height: 300px" src=image alt="Card image cap">
+    							</div>
+    							<div class="col-md-4">
+            						<h5>${response[i].name} ${response[i].surname}</h5>
+            						<p>"${response[i].description}"</p>
+            					<a href="Contact.html" class="btn btn-primary">Contact ${response[i].name} ${response[i].surname}</a>
+        						</div>
+    <div class="col-md-4">
+            <h5 style="margin-left: 2rem; margin-top: 0rem">What she does:</h5>
+                <div class="row position-relative" style="margin: 1rem">
+                    <div class="col-md-6 position-static">
+                        <img class="img-fluid" src="../img/Learning.jpg">
+                    </div>
+                    <div class="col-md-6 position-static">
+                        <a href="Service.html" class="stretched-link" style="color: #212529">Lifelong learning</a>
+                    </div>
+                </div>
+                <div class="row position-relative" style="margin: 1rem">
+                    <div class="col-md-6 position-static">
+                        <img class="img-fluid" src="../img/FreeTime.jpg">
+                    </div>
+                    <div class="col-md-6 position-static">
+                        <a href="Service.html" class="stretched-link" style="color: #212529">Free time</a>
+                    </div>
+                </div>
+        </div>
+	</div>`;
+                        document.getElementById("volunteer").innerHTML = `<div id="volunteer" class="row"  >${text}</div>`;
+                    })
+                }
+         </script>
+<div id="volunteer"  class="row" style="margin: 6rem; margin-top: 2rem; max-height: 300px">
+</div>
+
+<div class="row" style="margin: 2rem; margin-left: 6rem">
+    <h4>Events organized by Sofia:</h4>
+</div>
+<div class="row" style="margin: 6rem; margin-top: 2rem">
+    <div class="col-md-8">
+        <div class="card" id="Event">
+				<script>
+                  getEvent(1);					
+				</script>
+            </div>
+        </div>
+    </div>
+
+<footer class="footer">
+    <div class="footer-big footer-light bg-light">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+            <div>
+            <img src="../img/05-Auser.png" style="max-height: 10rem">
+            </div>
+                </div>
+                <div class="col-md-7">
+            <p>Via Nizza, 154 - 00198 Roma <br>Tel. (+39) 06. 844 0771<br>Fax (+39) 06 84407777</p>
+                </div>
+                <div class="col-md-2">
+            <p>
+                <a href="AboutUs.html">About us</a>
+            </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>    
+</body>
+</html>

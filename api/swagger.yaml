@@ -1,0 +1,527 @@
+---
+swagger: "2.0"
+info:
+  description: "All the api we need to implement our website"
+  version: "1.0.0"
+  title: "Auser API"
+  termsOfService: "terms"
+  contact:
+    email: "alberto.fiorucci@polimi.it"
+  license:
+    name: "Auser"
+    url: "http://Auser"
+host: "localhost"
+basePath: "/v1"
+tags:
+- name: "auser"
+  description: "auser association"
+- name: "volunteer"
+  description: "volunteer in the association"
+- name: "event"
+  description: "the event that Auser Offer"
+- name: "service"
+  description: "Service of the Auser"
+- name: "photo"
+  description: "photo of the service"
+- name: "involved"
+  description: "involed people on the service"
+- name: "presented"
+  description: "service present in the event"
+paths:
+  /ausers:
+    get:
+      tags:
+      - "auser"
+      summary: "get the Auser information"
+      description: "how we get the auser info"
+      operationId: "ausersGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "phone number,fax,address"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "Pagination offset. Default is none"
+        required: false
+        type: "string"
+      - name: "search"
+        in: "query"
+        description: "search a specific volunteer"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "succesfull operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Auser"
+        "404":
+          description: "An error"
+      x-swagger-router-controller: "Auser"
+  /volunteers:
+    get:
+      tags:
+      - "volunteer"
+      summary: "get the volunteers"
+      description: "how we get the volunteer"
+      operationId: "volunteersGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "name of the selected volunteer"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "Pagination offset. Default is none"
+        required: false
+        type: "string"
+      - name: "search"
+        in: "query"
+        description: "search a volunteer"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "succesfull operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Volunteer"
+        "404":
+          description: "An error"
+      x-swagger-router-controller: "Volunteer"
+  /Auser/{describe}:
+    get:
+      tags:
+      - "auser"
+      summary: "get the descriprion of the Auser"
+      description: "how we get the description of the Auser"
+      operationId: "auserDescribeGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "describe"
+        in: "path"
+        description: "the description"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "succesfull operation"
+          schema:
+            type: "string"
+        "400":
+          description: "description not found"
+        "404":
+          description: "Invalid text supplied"
+      x-swagger-router-controller: "Auser"
+  /involved:
+    get:
+      tags:
+      - "involved"
+      summary: "get the involved information"
+      description: "how we get the involved people"
+      operationId: "involvedsGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "id_event, email"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "Pagination offset. Default is none"
+        required: false
+        type: "string"
+      - name: "search"
+        in: "query"
+        description: "search a specific volunteer"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "succesfull operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Involved"
+        "404":
+          description: "An error"
+      x-swagger-router-controller: "Involved"
+  /presented:
+    get:
+      tags:
+      - "presented"
+      summary: "get the Auser information"
+      description: "how we get the auser info"
+      operationId: "presentedGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "phone number,fax,address"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "Pagination offset. Default is none"
+        required: false
+        type: "string"
+      - name: "search"
+        in: "query"
+        description: "search a specific volunteer"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "succesfull operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Presented"
+        "404":
+          description: "An error"
+      x-swagger-router-controller: "Presented"
+  /volunteers/{email}:
+    get:
+      tags:
+      - "volunteer"
+      summary: "get the volunteers"
+      description: "how we get the email of a volunteer"
+      operationId: "volunteersEmailGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "email"
+        in: "path"
+        description: "name of the selected volunteer"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "succesfull operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Volunteer"
+        "400":
+          description: "volunteer not found"
+        "404":
+          description: "Invalid e-mail supplied"
+      x-swagger-router-controller: "Volunteer"
+  /volunteers/Become:
+    post:
+      tags:
+      - "volunteer"
+      summary: "Became a volunteer"
+      description: "complete the form"
+      operationId: "volunteersBecomePOST"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "email"
+        in: "formData"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "formData"
+        required: true
+        type: "string"
+      - name: "surname"
+        in: "formData"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "succesfull registration"
+        "401":
+          description: "Some data are not correct"
+      x-swagger-router-controller: "Volunteer"
+  /event:
+    get:
+      tags:
+      - "event"
+      summary: "get the event"
+      description: "how we get the event"
+      operationId: "eventGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "id of the event"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "Pagination offset. Default is none"
+        required: false
+        type: "string"
+      - name: "search"
+        in: "query"
+        description: "search a Event"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "succesfull operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Event"
+        "404":
+          description: "An error"
+      x-swagger-router-controller: "Event"
+  /service:
+    get:
+      tags:
+      - "service"
+      summary: "get the service"
+      description: "how we get the service"
+      operationId: "serviceGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "the service"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "Pagination offset. Default is none"
+        required: false
+        type: "string"
+      - name: "search"
+        in: "query"
+        description: "search a service"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "succesfull operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Service"
+        "404":
+          description: "An error"
+      x-swagger-router-controller: "Service"
+  /photo:
+    get:
+      tags:
+      - "photo"
+      summary: "get the volunteers"
+      description: "how we get the photo"
+      operationId: "photoGET"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "limit"
+        in: "query"
+        description: "photo"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "Pagination offset. Default is none"
+        required: false
+        type: "string"
+      - name: "search"
+        in: "query"
+        description: "search a photo"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "succesfull operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Photo"
+        "404":
+          description: "An error"
+      x-swagger-router-controller: "Photo"
+definitions:
+  Volunteer:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+        example: "alberto.polimi@polimit.it"
+      name:
+        type: "string"
+        example: "Alberto"
+      surname:
+        type: "string"
+        example: "Fiorucci"
+      image:
+        type: "string"
+        format: "image"
+      birthDate:
+        $ref: "#/definitions/Volunteer_birthDate"
+      gender:
+        type: "string"
+        enum:
+        - "F"
+        - "M"
+      desc:
+        type: "integer"
+        format: "int64"
+      phoneNumber:
+        type: "integer"
+        format: "int64"
+      imageV:
+        type: "string"
+        format: "image"
+    title: "Volunteer"
+    description: "volunteer schema"
+    example:
+      image: "image"
+      imageV: "imageV"
+      phoneNumber: 5
+      gender: "F"
+      surname: "Fiorucci"
+      name: "Alberto"
+      birthDate:
+        month: 0
+        day: 6
+        years: 1
+      email: "alberto.polimi@polimit.it"
+      desc: 5
+  Auser:
+    type: "object"
+    properties:
+      phone number:
+        type: "integer"
+        format: "int64"
+        example: 333798748
+      fax:
+        type: "integer"
+        format: "int64"
+        example: 5551234
+      address:
+        type: "string"
+        example: "Via emanuele conti"
+      describe:
+        type: "string"
+        description: "describe text"
+      imageA:
+        type: "string"
+        format: "image"
+    title: "Auser Company"
+    description: "Auser schema"
+    example:
+      address: "Via emanuele conti"
+      describe: "describe"
+      phone number: 333798748
+      fax: 5551234
+      imageA: "imageA"
+  Event:
+    type: "object"
+    properties:
+      idEvent:
+        type: "integer"
+        format: "int32"
+        example: 0
+      info:
+        type: "string"
+        example: "a little description of the event"
+      data:
+        type: "string"
+        format: "date"
+      imageE:
+        type: "string"
+        format: "image"
+      TextualRappresentation:
+        type: "string"
+    title: "Event"
+    description: "Event schema"
+    example:
+      imageE: "imageE"
+      data: "2000-01-23"
+      TextualRappresentation: "TextualRappresentation"
+      idEvent: 0
+      info: "a little description of the event"
+  Service:
+    type: "object"
+    properties:
+      id_service:
+        type: "string"
+        format: "int32"
+        example: "0"
+      text:
+        type: "string"
+      profile:
+        type: "string"
+    title: "Service"
+    description: "Service schema"
+    example:
+      profile: "profile"
+      text: "text"
+      id_service: "0"
+  Photo:
+    type: "object"
+    properties:
+      id_photo:
+        type: "string"
+      imageP:
+        type: "string"
+        format: "image"
+    title: "photo"
+    description: "photo schema"
+    example:
+      id_photo: "id_photo"
+      imageP: "imageP"
+  Involved:
+    type: "object"
+    properties:
+      id_service:
+        type: "string"
+      email:
+        type: "string"
+    title: "involved"
+    description: "involved schema"
+    example:
+      email: "email"
+      id_service: "id_service"
+  Presented:
+    type: "object"
+    properties:
+      id_event:
+        type: "string"
+      id_service:
+        type: "string"
+    title: "presented"
+    example:
+      id_event: "id_event"
+      id_service: "id_service"
+  Volunteer_birthDate:
+    type: "object"
+    properties:
+      month:
+        type: "integer"
+        format: "int32"
+      day:
+        type: "integer"
+        format: "int32"
+      years:
+        type: "integer"
+        format: "int32"
+    example:
+      month: 0
+      day: 6
+      years: 1
