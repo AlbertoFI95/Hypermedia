@@ -16,7 +16,13 @@ let { setupDataLayerP } = require("./service/DataLayerP");
 let { setupDataLayerPR } = require("./service/DataLayerPR");
 let { setupDataLayerI } = require("./service/DataLayerI");
 var serverPort = process.env.PORT || 8080;
-
+const { Pool } = require('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 var Volunteer = require('./controllers/Volunteer');
 
 // swaggerRouter configuration
@@ -57,6 +63,19 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     res.writeHead(200);
     res.write(Home);
     res.end();
+  })
+	
+ app.get('/db', async (req, res) => {
+    try {
+      const client = await pool.connect();
+      const result = await client.query('SELECT * FROM volunteer');
+      const results = { 'results': (result) ? result.rows : null};
+      res.render('pages/db', results );
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
   })
 
 })
