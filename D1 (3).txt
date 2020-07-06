@@ -1,0 +1,91 @@
+ # Documentation of the Backend part
+> Deliverable D1
+
+
+## General group information
+| Member n. | Role          | First name | Last Name | Matricola | Email address                   |
+|-----------|---------------|------------|-----------|-----------|---------------------------------|
+| 1         | administrator | Alberto    | Fiorucci  | 919546    | alberto.fiorucci@mail.polimi.it |
+| 2         | member        | Sara       | Moayedi   | 918134    | sara.moayedi@mail.polimi.it     |
+| 3         | member        | Andrea     | Zito      | 915325    | andrea1.zito@mail.polimi.it     |
+
+
+## Links to other deliverables
+- Deliverable D0: the web application is accessible at https://gentle-island-77849.herokuapp.com/
+(We faced many problems during the implementation and publishing of the web application, despite requesting help from our tutor more than once, we never received any assistance for the errors we were getting)
+- Deliverable D2: the YAML or JSON file containing the specification
+of the app API can be found at https://gentle-island-77849.herokuapp.com/backend/spec.yaml
+(Also accessible at https://github.com/AlbertoFI95/Hypermedia/blob/master/api/swagger.yaml)
+- Deliverable D3: the SwaggerUI page of the same API is available at
+https://gentle-island-77849.herokuapp.com/backend/swaggerui
+- Deliverable D4: the source code of D0 is available as a zip file at
+https://gentle-island-77849.herokuapp.com/backend/app.zip
+- Deliverable D5: the address of the online source control repository
+is available https://github.com/AlbertoFI95/Final_project. We hereby
+declare that this is a private repository and, upon request, we will
+give access to the instructors.
+(Previous versions can be found at the following link: https://gitlab.com/sara.moayedi/hypermedia_app)
+
+
+## Specification
+
+### Web Architecture
+
+
+
+The figure shows the general architecture of the system. Our client nodes are connected to the Internet in order to communicate with the Application Server nodes.
+Volunteers are registered to the application in order to communicate with the application server which is the part of the program that encodes the business logic that determines how data can be created, stored, and changed. On the other way it is the logical part of the system. Also Application Server is connected to the Database Server in order to have access to the volunteers data. In the Database server all the data and information used in the system will be stored, such as the personal information of volunteers.
+We used a 3-tier structure which is composed of three "tiers" or "layers" of logical computing which we use for designing the architecture of our application. They are used in applications as a specific type of client-server system. 3-tier architectures provide many benefits for production and development of environments by modularizing the user interface, business logic, and data storage layers. Doing so gives greater flexibility to development teams by allowing them to update a specific part of an application independently of the other parts. That is why we chose this method.
+• Presentation layer: The presentation layer is the front-end layer in the 3-tier system and consists of the user interface. This user interface is often a graphical one accessible through a web browser or web-based application and which displays content and information useful to an end user. This tier is built on web technologies such as HTML and CSS and communicates with others layers through API calls.
+• Application layer: The application layer contains the functional business logic which drives an application’s core capabilities. 
+• Data layer: The data layer comprises of the database/data storage system and data access layer. PostgreSQL data is accessed by the application layer via API calls.
+
+### API
+
+#### REST compliance
+For our project we strictly followed the REST API principles, sticking with it since we think it is the best way to make the web application the most accessible and safe possible for the user. With dthe development of this web application we respected all the 6 REST API's principles: Client-server, Stateless, Cacheable, Layered system, Code on demand and Uniform interface.
+
+#### OpenAPI Resource models
+We used 64 bit integer values for phone number and fax, string types for mail, name, surname, image, description and a complex type for dates made of three integers to identify day, month and year.
+
+### Data model
+Each entity of our ER diagram is linked to its own definition in the APIs, where they can be found under the "definition" tag. Each definition contains an ID with the name of an entity linked in the ER or a kind of attribute which contains more parts in it. Together with the ID there are other object representing the attributes of each entity. In the "path" section we can find the methods to insert and extract data from the database.
+
+
+## Implementation
+
+### Tools used
+We used Yaml and javascript languages and developed our application using Brackets, Blindtext, Heroku, Swagger.io. We also used  frameworks.
+
+
+### Discussion
+Describe here:
+For the development of the backend of our project we used PostgreSQL which is a powerful, open source object-relational database that has earned it a strong reputation for reliability, feature robustness, and performance. We gained experience to know how the server can run.
+We used tables where all the data in a database is stored, and without tables there would not be much use for relational databases. With API request we can have a link to our database and for having access to them we just once open the connection to the database and then we use “insert”, “select” and other requests. 
+For validating our functionality during development, we are constantly required to double check if our APIs and endpoints work as intended during the development process. Swagger Inspector provides capabilities to easily inspect API request-responses and make sure we work as expected; that's why we use swagger as our API testing.
+
+
+## Other information
+
+### Task assignment
+> - Alberto worked on back end and APIs (90%) and front end (10% of the time)
+> - Sara worked on back end and API (50%) and front end (20% of the time)
+> - Andrea worked on front end (100% of the time)
+
+### Analysis of existing API
+Describe here the research of (full or part of) existing APIs that are similar
+in objectives and scope to the one implemented, that have possibly guided
+implementation choices (these should not be necessarily OpenAPI
+implementations). Toy APIs (such as the Swagger's Pet Store) or the example
+shown during lectures are not a valid response.
+Use TWO or more items of the form:
+For the part of the API that manages manages the relationship between a volunteer and the services and events we considered the examples provided on Swagger.io (https://swagger.io/docs/specification/adding-examples/). These examples helped us in the development of a Taylor-made API for our web application.
+
+
+### Learning outcome
+- Alberto learned how to start an online database, how to populate the database
+with dynamic data and how to write and manage scripts to read the data inside the database.
+- Sara learned how to create a database table and to connect it to the other parts of the
+project. 
+- Andrea learned more about coding for the front end but couldn't get
+enough new knowledge about the back end.
